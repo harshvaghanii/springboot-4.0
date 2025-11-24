@@ -47,14 +47,6 @@ You should see output similar to:
 
 ```
 --------Baking the cake------
-Frosting Type: Chocolate
-Syrup Type: Maple
-```
-
-or for Strawberry Cake:
-
-```
---------Baking the cake------
 Frosting Type: STRAWBERRY
  Syrup Type: STRAWBERRY
 -----------Finished Baking the Cake, Enjoy!!!---------------

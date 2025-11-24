@@ -8,13 +8,13 @@ This is my **Week 1 homework** for the **Coding Shuttle Spring Boot 4.0** class.
 
 ## 🌟 Overview
 
-The assignment provided a main class named `CakeBaker`. For my submission, I used the main class name:
+The main class of the application is:
 
 ```java
 HomeworkWeek1Application
 ```
 
-The functionality is the same as `CakeBaker`:
+This calls the `CakeBaker` method as following:
 
 - Calls the `bakeCake()` method  
 - Uses **Dependency Injection** to bake either a **🍓 Strawberry Cake** or **🍫 Chocolate Cake**  
@@ -56,8 +56,7 @@ Frosting Type: STRAWBERRY
 
 ## 💡 Notes
 
-- The main class is `HomeworkWeek1Application` instead of `CakeBaker`  
-- Cake type is configurable via Spring properties  
+- Cake type is configurable via Spring properties or environment variables in `Intellij`  
 - Demonstrates Spring Boot's **Dependency Injection** and **conditional beans**
 
 ---

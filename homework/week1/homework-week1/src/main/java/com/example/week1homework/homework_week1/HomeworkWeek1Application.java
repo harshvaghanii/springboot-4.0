@@ -8,16 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // This is the HomeworkWeek1Application class
 public class HomeworkWeek1Application implements CommandLineRunner {
 
-    private final Frosting frosting;
-    private final Syrup syrup;
+    private final CakeBaker cakeBaker;
 
-    public HomeworkWeek1Application(Frosting frosting, Syrup syrup) {
-        this.frosting = frosting;
-        this.syrup = syrup;
-    }
-
-    public void bakeCake() {
-        System.out.println("--------Baking the cake------\nFrosting Type: " + frosting.getFrostingType() + "\n Syrup Type: " + syrup.getSyrupType() + "\n-----------Finished Baking the Cake, Enjoy!!!---------------");
+    public HomeworkWeek1Application(CakeBaker cakeBaker) {
+        this.cakeBaker = cakeBaker;
     }
 
     public static void main(String[] args) {
@@ -26,6 +20,6 @@ public class HomeworkWeek1Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        bakeCake();
+        cakeBaker.bakeCake();
     }
 }

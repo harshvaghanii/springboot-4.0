@@ -75,5 +75,5 @@ Frosting Type: STRAWBERRY
 I’d love to hear your thoughts and suggestions on this project!  
 
 Thanks! 🙏  
-— [Your Name]
+— [Harsh Vaghani -LinkedIn](https://www.linkedin.com/in/harshvaghanii/)
 

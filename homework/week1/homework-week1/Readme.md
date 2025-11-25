@@ -17,7 +17,7 @@ HomeworkWeek1Application
 This calls the `CakeBaker` method as following:
 
 - Calls the `bakeCake()` method  
-- Uses **Dependency Injection** to bake either a **🍓 Strawberry Cake** or **🍫 Chocolate Cake**  
+- Uses **Dependency Injection** to bake a cake  
 
 This project demonstrates:
 
@@ -48,7 +48,7 @@ You should see output similar to:
 ```
 --------Baking the cake------
 Frosting Type: STRAWBERRY
- Syrup Type: STRAWBERRY
+ Syrup Type: CHOCOLATE
 -----------Finished Baking the Cake, Enjoy!!!---------------
 ```
 

@@ -17,6 +17,9 @@ public class DepartmentDto {
     @NotNull(message = "Required Field isActive is Null!")
     private Boolean isActive;
 
+    @NotEmpty(message = "Required field description is empty!")
+    private String description;
+
     private LocalDateTime createdAt;
 
 }

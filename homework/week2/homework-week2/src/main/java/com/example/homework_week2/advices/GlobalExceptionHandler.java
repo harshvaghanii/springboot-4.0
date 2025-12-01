@@ -3,6 +3,7 @@ package com.example.homework_week2.advices;
 import com.example.homework_week2.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -15,6 +16,22 @@ public class GlobalExceptionHandler {
                 .builder()
                 .httpStatus(HttpStatus.NOT_FOUND)
                 .message(exception.getMessage())
+                .build();
+        return buildErrorResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<?>> handleValidationException(MethodArgumentNotValidException exception) {
+        ApiError apiError = ApiError
+                .builder()
+                .message("Input Validation Errors!")
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .subErrors(exception
+                        .getBindingResult()
+                        .getAllErrors()
+                        .stream()
+                        .map(objectError -> objectError.getDefaultMessage())
+                        .toList())
                 .build();
         return buildErrorResponseEntity(apiError);
     }

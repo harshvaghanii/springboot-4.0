@@ -19,6 +19,8 @@ public class Department {
 
     Boolean isActive;
 
+    String description;
+
     @CreationTimestamp
     LocalDateTime createdAt;
 }

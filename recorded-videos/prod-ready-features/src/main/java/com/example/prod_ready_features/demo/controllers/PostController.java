@@ -1,6 +1,7 @@
 package com.example.prod_ready_features.demo.controllers;
 
 import com.example.prod_ready_features.demo.dto.PostDTO;
+import com.example.prod_ready_features.demo.exceptions.MyRestClientException;
 import com.example.prod_ready_features.demo.services.PostService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,7 @@ public class PostController {
                     .body(String.class);
             return response;
         } catch (Exception exception) {
-            throw new RestClientException(exception.getMessage());
+            throw new MyRestClientException(exception.getMessage());
         }
     }
 

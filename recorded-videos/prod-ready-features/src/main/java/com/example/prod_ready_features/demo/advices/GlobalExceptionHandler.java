@@ -1,7 +1,7 @@
 package com.example.prod_ready_features.demo.advices;
 
 import com.example.prod_ready_features.demo.exceptions.ResourceNotFoundException;
-import com.example.prod_ready_features.demo.exceptions.RestClientException;
+import com.example.prod_ready_features.demo.exceptions.MyRestClientException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,8 +20,8 @@ public class GlobalExceptionHandler {
         return buildErrorResponseEntity(apiError);
     }
 
-    @ExceptionHandler(RestClientException.class)
-    public ResponseEntity<ApiResponse<?>> handleRestClientException(RestClientException exception) {
+    @ExceptionHandler(MyRestClientException.class)
+    public ResponseEntity<ApiResponse<?>> handleRestClientException(MyRestClientException exception) {
         ApiError apiError = ApiError
                 .builder()
                 .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)

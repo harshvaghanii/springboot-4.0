@@ -2,7 +2,6 @@ package com.example.prod_ready_features.demo.advices;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -18,7 +17,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if(request.getURI().getPath().contains("api-docs") || request.getURI().getPath().contains("swagger-ui")
+        if (request.getURI().getPath().contains("api-docs") || request.getURI().getPath().contains("swagger-ui")
                 || body instanceof String
         ) {
             return body;

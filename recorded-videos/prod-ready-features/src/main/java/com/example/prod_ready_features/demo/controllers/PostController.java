@@ -37,7 +37,8 @@ public class PostController {
     @GetMapping(path = "/weatherapi")
     public String getWeather() {
         try {
-            String response = restClient.get()
+            String response = restClient
+                    .get()
                     .uri(uriBuilder -> uriBuilder
                             .queryParam("latitude", 40.730610)
                             .queryParam("longitude", -73.935242)

@@ -9,3 +9,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/springsecurity?userSSL=false
     username: root
+#  security:
+#    user:
+#      name: harsh
+#      password: pass

@@ -2,7 +2,6 @@ package com.example.spring_security_fundamentals.spring_security_fundamentals.co
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,14 +20,15 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
                 .authorizeHttpRequests(
                         auth ->
                                 auth
-                                        .requestMatchers("/api/v1/posts").permitAll() // Permits /api/v1 routes without security
+                                        .requestMatchers("/auth/**").permitAll() // Permits only Auth Page to public
                                         .requestMatchers("/api/v1/posts/**").hasAnyRole("ADMIN")
                                         .anyRequest().authenticated()
-                ).sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin(Customizer.withDefaults());
+                )
+                .sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build();
     }
 

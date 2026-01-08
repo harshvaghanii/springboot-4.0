@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/springsecurity?userSSL=false
+    username: root
+
+security:
+  secret-key: mysupersecretkeyishere5646dfgh4646ds4h654654sd65h464e6h46546,465.464,654r65h

@@ -1,5 +1,6 @@
 package com.example.spring_security_fundamentals.spring_security_fundamentals.advices;
 
+import com.example.spring_security_fundamentals.spring_security_fundamentals.exceptions.InvalidCredentialException;
 import com.example.spring_security_fundamentals.spring_security_fundamentals.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,16 @@ public class GlobalExceptionHandler {
                 .builder()
                 .httpStatus(HttpStatus.NOT_FOUND)
                 .message(exception.getMessage())
+                .build();
+        return buildErrorResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(InvalidCredentialException.class)
+    public ResponseEntity<ApiResponse<?>> handleInvalidCredentialsException(InvalidCredentialException exception) {
+        ApiError apiError = ApiError
+                .builder()
+                .message(exception.getMessage())
+                .httpStatus(HttpStatus.FORBIDDEN)
                 .build();
         return buildErrorResponseEntity(apiError);
     }

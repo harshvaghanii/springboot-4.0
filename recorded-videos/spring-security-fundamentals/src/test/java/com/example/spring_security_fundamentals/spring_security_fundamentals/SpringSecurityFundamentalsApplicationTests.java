@@ -22,6 +22,7 @@ class SpringSecurityFundamentalsApplicationTests {
         user.setId(10014L);
         user.setEmail("harsh@gmail.com");
         user.setPassword("password");
+        user.setName("Harsh");
         String jwtToken = jwtService.generateToken(user);
         System.out.println("This is the token that is generated: " + jwtToken);
 

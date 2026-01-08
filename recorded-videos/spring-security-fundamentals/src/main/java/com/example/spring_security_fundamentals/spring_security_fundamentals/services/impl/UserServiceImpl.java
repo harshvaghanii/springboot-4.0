@@ -10,6 +10,8 @@ import com.example.spring_security_fundamentals.spring_security_fundamentals.ser
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,12 +32,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User with username: " + username + " not found!"));
+                .orElseThrow(() -> new BadCredentialsException("Invalid Credentials! Please try again!"));
     }
 
     @Override
     public UserDTO signUp(SignUpDTO signUpDTO) {
-        log.info("I'm in the signUp service method: {}", signUpDTO);
         if (userExists(signUpDTO.getEmail())) {
             throw new InvalidCredentialException("User with email " + signUpDTO.getEmail() + " already exists!");
         }
@@ -46,8 +47,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return modelMapper.map(savedUser, UserDTO.class);
     }
 
+    @Override
+    public User getUserById(Long userId) {
+        return userRepository
+                .findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User with ID: " + userId + " not found!"));
+    }
+
     private boolean userExists(String email) {
         Optional<User> existingUser = userRepository.findByEmail(email);
         return existingUser.isPresent();
+    }
+
+    public User getCurrentUser() {
+
+        if (SecurityContextHolder.getContext() == null || SecurityContextHolder.getContext().getAuthentication() == null) {
+            log.info("No user is signed in!");
+            return null;
+        }
+
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return currentUser;
     }
 }

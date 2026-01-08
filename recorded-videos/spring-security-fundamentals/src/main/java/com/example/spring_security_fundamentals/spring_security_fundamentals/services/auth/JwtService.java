@@ -40,6 +40,7 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
         return Long.parseLong(claims.getSubject());
+
     }
 
     private SecretKey getSecretKey() {

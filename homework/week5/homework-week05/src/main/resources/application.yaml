@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/homeworkweek5?userSSL=false
+    username: root
+
+security:
+  secret-key: ksahg654d6h4df./fd,hsdjghkajbfkgdf987fd65h46sfdh

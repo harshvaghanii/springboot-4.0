@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -11,4 +11,4 @@ spring:
     username: root
 
 security:
-  secret-key: ksahg654d6h4df./fd,hsdjghkajbfkgdf987fd65h46sfdh
+  secret-key: ksahg654d6h4df./fd,hsdjghkajbfkgdf987fd65h46sfdhbksahgl)()(_dsfs

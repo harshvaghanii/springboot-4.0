@@ -1,6 +1,7 @@
 package com.example.homework_week_05.homework_week05.configs;
 
 import com.example.homework_week_05.homework_week05.security.JwtAuthenticationFilter;
+import com.example.homework_week_05.homework_week05.security.LoggingFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final LoggingFilter loggingFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -30,7 +32,8 @@ public class WebSecurityConfig {
                                 auth
                                         .requestMatchers("/auth/**").permitAll()
                                         .anyRequest().authenticated())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(loggingFilter, JwtAuthenticationFilter.class);
 
         return httpSecurity.build();
     }

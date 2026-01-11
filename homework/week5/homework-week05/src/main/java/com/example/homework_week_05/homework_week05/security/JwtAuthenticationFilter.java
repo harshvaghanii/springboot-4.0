@@ -1,8 +1,10 @@
 package com.example.homework_week_05.homework_week05.security;
 
 import com.example.homework_week_05.homework_week05.entities.User;
+import com.example.homework_week_05.homework_week05.services.SessionService;
 import com.example.homework_week_05.homework_week05.services.UserService;
 import com.example.homework_week_05.homework_week05.services.auth.JwtService;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserService userService;
 
+    private final SessionService sessionService;
+
     @Autowired
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver handlerExceptionResolver;
@@ -43,7 +47,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
             String jwtToken = authHeader.substring(7);
+            System.out.println("Here's the jwtToken: " + jwtToken);
+            sessionService.findByAccessToken(jwtToken);
             Long userId = jwtService.extractUserId(jwtToken);
+
+            if (userId == null) {
+                throw new JwtException("Invalid JWT Token! Please login again!");
+            }
 
             // Do the next steps only if the user is not authenticated yet
 

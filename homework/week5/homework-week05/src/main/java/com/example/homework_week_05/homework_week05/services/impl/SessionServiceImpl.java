@@ -5,7 +5,6 @@ import com.example.homework_week_05.homework_week05.exceptions.ResourceNotFoundE
 import com.example.homework_week_05.homework_week05.repositories.SessionRepository;
 import com.example.homework_week_05.homework_week05.services.SessionService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,6 @@ public class SessionServiceImpl implements SessionService {
 
     private final SessionRepository sessionRepository;
     private static final Long EXPIRATION_MINUTES = 3L;
-    private final ModelMapper modelMapper;
 
     @Override
     @Transactional
@@ -30,15 +28,6 @@ public class SessionServiceImpl implements SessionService {
         newSession.setExpiresAt(LocalDateTime.now().plusMinutes(EXPIRATION_MINUTES));
         Session savedSession = sessionRepository.save(newSession);
         return savedSession;
-    }
-
-    @Override
-    public Session findByUserId(Long userId) {
-        Optional<Session> session = sessionRepository.findByUserId(userId);
-        if (session.isEmpty()) {
-            throw new ResourceNotFoundException("Session for user with user id: " + userId + " not found!");
-        }
-        return session.get();
     }
 
     @Override
@@ -55,8 +44,4 @@ public class SessionServiceImpl implements SessionService {
         sessionRepository.deleteByUserId(userId);
     }
 
-    @Override
-    public boolean isValidSession(Session session) {
-        return session.getExpiresAt().isAfter(LocalDateTime.now());
-    }
 }

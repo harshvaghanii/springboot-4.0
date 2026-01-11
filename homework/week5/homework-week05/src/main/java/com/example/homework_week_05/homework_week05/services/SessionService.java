@@ -6,12 +6,8 @@ public interface SessionService {
 
     Session createSession(Long user_id, String token);
 
-    Session findByUserId(Long userId);
-
     void findByAccessToken(String accessToken);
 
     void deleteByUserId(Long userId);
-
-    boolean isValidSession(Session session);
 
 }

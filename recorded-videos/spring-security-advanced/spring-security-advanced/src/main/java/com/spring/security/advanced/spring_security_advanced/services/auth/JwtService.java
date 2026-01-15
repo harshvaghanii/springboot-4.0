@@ -17,9 +17,10 @@ public class JwtService {
 
     @Value("${security.secret-key}")
     private String jwtSecretKey;
-    private final long EXPIRATION = 3 * 60 * 1000;
+    private final long ACCESSTOKEN_EXPIRATION = 5 * 60 * 1000;
+    private final long REFRESHTOKEN_EXPIRATION = 1 * 60 * 1000 * 60 * 24 * 3;
 
-    public String generateToken(User user) {
+    public String generateAccessToken(User user) {
         return Jwts
                 .builder()
                 .subject(user.getId().toString())
@@ -27,7 +28,17 @@ public class JwtService {
                 .claim("roles", Set.of("ADMIN", "USER"))
                 .signWith(getSecretKey())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION))
+                .expiration(new Date(System.currentTimeMillis() + ACCESSTOKEN_EXPIRATION))
+                .compact();
+    }
+
+    public String generateRefreshToken(User user) {
+        return Jwts
+                .builder()
+                .subject(user.getId().toString())
+                .signWith(getSecretKey())
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + REFRESHTOKEN_EXPIRATION))
                 .compact();
     }
 

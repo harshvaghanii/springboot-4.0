@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 @Builder
 public class OAuthTokenDTO {
 
-    private String oAuthToken;
+    private String accessToken;
+
+    private String refreshToken;
 
     private LocalDateTime createdAt;
 

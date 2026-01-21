@@ -33,7 +33,7 @@ public class PostLikeServiceImpl implements PostLikeService {
         Optional<PostLike> existingPostLike = postLikeRepository.findByUserIdAndPostId(userId, postId);
         if (existingPostLike.isPresent()) {
             log.info("User with user id {} has already like the post with id {}, unliking the post!", userId, postId);
-            postLikeRepository.deleteById(existingPostLike.get().getPostId());
+            postLikeRepository.deleteById(existingPostLike.get().getId());
             return;
         }
 

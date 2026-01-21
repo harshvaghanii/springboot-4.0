@@ -1,5 +1,6 @@
 package com.vaghani.linkedin.posts_service.services.impl;
 
+import com.vaghani.linkedin.posts_service.dto.PostLikeDTO;
 import com.vaghani.linkedin.posts_service.entities.PostLike;
 import com.vaghani.linkedin.posts_service.exceptions.ResourceNotFoundException;
 import com.vaghani.linkedin.posts_service.repositories.PostLikeRepository;
@@ -8,6 +9,9 @@ import com.vaghani.linkedin.posts_service.services.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,14 +22,20 @@ public class PostLikeServiceImpl implements PostLikeService {
     private final PostService postService;
 
     @Override
-    public void likePost(Long postId, Long userId) {
+    public void likeUnlikePost(Long postId, Long userId) {
 
         log.info("Attempting to like the post with ID: {} and user with ID: {}", postId, userId);
 
         if (!postService.postExistsById(postId)) {
             throw new ResourceNotFoundException("Post with ID: " + postId + " not found!");
         }
-        if (postLikeRepository.existsByUserIdAndPostId(userId, postId)) return;
+
+        Optional<PostLike> existingPostLike = postLikeRepository.findByUserIdAndPostId(userId, postId);
+        if (existingPostLike.isPresent()) {
+            log.debug("User with user id {} has already like the post with id {}, unliking the post!", userId, postId);
+            postLikeRepository.deleteById(existingPostLike.get().getPostId());
+            return;
+        }
 
         PostLike postLike = new PostLike();
         postLike.setPostId(postId);
@@ -35,5 +45,18 @@ public class PostLikeServiceImpl implements PostLikeService {
 
         log.info("Post with ID: {} like successfully by user with user id: {}", postId, userId);
 
+    }
+
+    @Override
+    public PostLikeDTO totalLikesForAPost(Long postId) {
+        List<PostLike> likes = postLikeRepository.findByPostId(postId);
+        PostLikeDTO postLikeDTO = new PostLikeDTO();
+        postLikeDTO.setPostId(postId);
+        if (likes == null) {
+            postLikeDTO.setLikes(0);
+        } else {
+            postLikeDTO.setLikes(likes.size());
+        }
+        return postLikeDTO;
     }
 }

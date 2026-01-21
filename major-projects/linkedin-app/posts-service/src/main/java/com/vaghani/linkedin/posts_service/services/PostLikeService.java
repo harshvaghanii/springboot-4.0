@@ -1,7 +1,11 @@
 package com.vaghani.linkedin.posts_service.services;
 
+import com.vaghani.linkedin.posts_service.dto.PostLikeDTO;
+
 public interface PostLikeService {
 
-    public void likePost(Long postId, Long userId);
+    void likeUnlikePost(Long postId, Long userId);
+
+    PostLikeDTO totalLikesForAPost(Long postId);
 
 }

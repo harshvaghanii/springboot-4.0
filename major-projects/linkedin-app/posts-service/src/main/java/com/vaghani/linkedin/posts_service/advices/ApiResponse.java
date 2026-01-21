@@ -1,7 +1,10 @@
 package com.vaghani.linkedin.posts_service.advices;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 public class ApiResponse<T> {
 
     T data;

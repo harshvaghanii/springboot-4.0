@@ -2,16 +2,19 @@ package com.vaghani.linkedin.posts_service.advices;
 
 import com.vaghani.linkedin.posts_service.exceptions.BadRequestException;
 import com.vaghani.linkedin.posts_service.exceptions.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse<?>> handleResourceNotFoundException(ResourceNotFoundException exception) {
+        log.info("In the resource not found exception!");
         ApiError apiError = ApiError
                 .builder()
                 .message(exception.getMessage())

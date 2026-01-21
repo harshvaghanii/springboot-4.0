@@ -32,7 +32,7 @@ public class PostLikeServiceImpl implements PostLikeService {
 
         Optional<PostLike> existingPostLike = postLikeRepository.findByUserIdAndPostId(userId, postId);
         if (existingPostLike.isPresent()) {
-            log.debug("User with user id {} has already like the post with id {}, unliking the post!", userId, postId);
+            log.info("User with user id {} has already like the post with id {}, unliking the post!", userId, postId);
             postLikeRepository.deleteById(existingPostLike.get().getPostId());
             return;
         }
@@ -43,12 +43,17 @@ public class PostLikeServiceImpl implements PostLikeService {
 
         postLikeRepository.save(postLike);
 
-        log.info("Post with ID: {} like successfully by user with user id: {}", postId, userId);
+        log.info("Post with ID: {} liked successfully by user with user id: {}", postId, userId);
 
     }
 
     @Override
     public PostLikeDTO totalLikesForAPost(Long postId) {
+
+        if (!postService.postExistsById(postId)) {
+            throw new ResourceNotFoundException("Post with ID: " + postId + " not found!");
+        }
+
         List<PostLike> likes = postLikeRepository.findByPostId(postId);
         PostLikeDTO postLikeDTO = new PostLikeDTO();
         postLikeDTO.setPostId(postId);

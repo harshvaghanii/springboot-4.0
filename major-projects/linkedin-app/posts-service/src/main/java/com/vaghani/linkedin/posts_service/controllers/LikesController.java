@@ -13,13 +13,13 @@ public class LikesController {
 
     private final PostLikeService postLikeService;
 
-    @PostMapping(path = "/likes/{postId}")
+    @PostMapping(path = "/{postId}")
     public ResponseEntity<Void> likeUnlikePost(@PathVariable Long postId) {
         postLikeService.likeUnlikePost(postId, 1L);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(path = "/likes/{postId}")
+    @GetMapping(path = "/{postId}")
     public ResponseEntity<PostLikeDTO> getAllLikesForPost(@PathVariable Long postId) {
         PostLikeDTO postLikeDTO = postLikeService.totalLikesForAPost(postId);
         return ResponseEntity.ok(postLikeDTO);

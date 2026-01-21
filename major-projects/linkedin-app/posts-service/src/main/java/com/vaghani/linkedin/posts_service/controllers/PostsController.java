@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/posts")
 @RequiredArgsConstructor
-public class PostController {
+public class PostsController {
 
     private final PostService postService;
 

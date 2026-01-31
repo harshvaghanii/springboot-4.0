@@ -1,6 +1,7 @@
 package com.vaghani.linkedin.user_service.advices;
 
 import com.vaghani.linkedin.user_service.exceptions.BadRequestException;
+import com.vaghani.linkedin.user_service.exceptions.ResourceExistsException;
 import com.vaghani.linkedin.user_service.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,16 @@ public class GlobalExceptionHandler {
                 .builder()
                 .message(exception.getMessage())
                 .httpStatus(HttpStatus.BAD_REQUEST)
+                .build();
+        return buildErrorResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(ResourceExistsException.class)
+    public ResponseEntity<ApiResponse<?>> handleResourceExistsException(ResourceExistsException exception) {
+        ApiError apiError = ApiError
+                .builder()
+                .message(exception.getMessage())
+                .httpStatus(HttpStatus.CONFLICT)
                 .build();
         return buildErrorResponseEntity(apiError);
     }

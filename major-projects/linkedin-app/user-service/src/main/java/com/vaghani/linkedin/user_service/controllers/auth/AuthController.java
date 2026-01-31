@@ -6,6 +6,7 @@ import com.vaghani.linkedin.user_service.dto.SignupRequestDTO;
 import com.vaghani.linkedin.user_service.dto.UserDTO;
 import com.vaghani.linkedin.user_service.services.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class AuthController {
     @PostMapping(path = "/signup")
     public ResponseEntity<UserDTO> signUp(@RequestBody SignupRequestDTO signupRequestDTO) {
         UserDTO userDTO = authService.signUp(signupRequestDTO);
-        return ResponseEntity.ok(userDTO);
+        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/login")

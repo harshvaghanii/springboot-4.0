@@ -1,0 +1,11 @@
+server:
+  port: 9010
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postsDB
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update

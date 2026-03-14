@@ -1,14 +1,12 @@
 package com.vaghani.linkedin.connections_service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
+@Data
 public class PersonDTO {
 
-    private final Long userId;
+    private Long userId;
 
-    private final String name;
+    private String name;
 
 }

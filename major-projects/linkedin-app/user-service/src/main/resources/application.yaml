@@ -1,5 +1,7 @@
 server:
   port: 9020
+  servlet:
+    context-path: /users
 
 spring:
   datasource:
@@ -9,3 +11,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

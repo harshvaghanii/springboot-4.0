@@ -18,9 +18,24 @@ public class ConnectionsController {
 
     private final ConnectionsService connectionsService;
 
+    @GetMapping(path = "/{name}")
+    public PersonDTO getByName(@PathVariable String name) {
+        return connectionsService.getByName(name);
+    }
+
     @GetMapping(path = "/{userId}/first-degree")
     public ResponseEntity<List<PersonDTO>> getFirstConnections(@PathVariable Long userId) {
         return ResponseEntity.ok(connectionsService.getFirstDegreeConnections(userId));
+    }
+
+    @GetMapping(path = "/{userId}/second-degree")
+    public ResponseEntity<List<PersonDTO>> getSecondConnections(@PathVariable Long userId) {
+        return ResponseEntity.ok(connectionsService.getSecondDegreeConnections(userId));
+    }
+
+    @GetMapping(path = "/{userId}/third-degree")
+    public ResponseEntity<List<PersonDTO>> getThirdConnections(@PathVariable Long userId) {
+        return ResponseEntity.ok(connectionsService.getThirdDegreeConnections(userId));
     }
 
 }
